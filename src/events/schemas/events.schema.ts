@@ -67,7 +67,7 @@ export const EventSchema = SchemaFactory.createForClass(Event);
 EventSchema.pre('save', function (next) {
   if (!this.registrationUrl) {
     const encodedId = btoa(this._id.toString());
-    const baseUrl = process.env.BASE_URL || 'http://localhost:5174/'; // Make the base URL configurable
+    const baseUrl = `${process.env.BASE_URL}/` || 'http://localhost:5174/'; // Make the base URL configurable
     this.registrationUrl = `${baseUrl}${encodedId}`;
   }
   next();
