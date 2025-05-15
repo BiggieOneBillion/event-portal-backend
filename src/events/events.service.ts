@@ -59,7 +59,7 @@ export class EventsService {
         ...createEventDto,
         userId: id,
         haveVerifiers: false,
-        verifiersDetails: {}
+        verifiersDetails: {},
       });
 
       // save the event to the database
@@ -67,9 +67,7 @@ export class EventsService {
 
       // if successful then return the saved event
       return { message: 'Event Created', event: saveEvent };
-
     } catch (error) {
-      
       if (error instanceof BadRequestException) {
         throw error;
       }
@@ -126,10 +124,26 @@ export class EventsService {
         throw new NotFoundException('Resources not found');
       }
 
+      const data = {
+        name: event.name,
+        location: event.location,
+        type: event.type,
+        noOfAttendees: event.noOfAttendees,
+        date: event.date,
+        startTimes: event.startTimes,
+        endTimes: event.endTimes,
+        eventImg: event.eventImg,
+        title: event.title,
+        description: event.description,
+        registrationStartDate: event.registrationStartDate,
+        registrationEndDate: event.registrationEndDate,
+        registrationUrl: event.registrationUrl,
+      };
+
       //  If it exist, then return the array
       return {
-        message: 'Successfully fetched the event',
-        data: { eventImg: event.eventImg, name: event.name },
+        message: 'Successfully fetched the event one',
+        data: { event: data },
       };
     } catch (error) {
       if (error instanceof NotFoundException) {
